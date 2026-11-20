@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Coast Cover Studio — GTA-style cover art maker</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <h1>Neon Coast <span>Cover Studio</span></h1>
+    <p>Turn any photo and a caption into GTA-style cover art. Offline, no upload, export as PNG.</p>
+  </div>
+  <div class="top-actions">
+    <button id="undo" type="button" disabled>Undo</button>
+    <button id="redo" type="button" disabled>Redo</button>
+  </div>
+</header>
+<main class="app">
+  <aside class="controls" aria-label="Cover controls">
+    <section>
+      <h2>1 · Photos</h2>
+      <p class="hint">Add up to four of your own photos, or load the samples. Click a thumbnail to put it in the selected panel; click a panel, then drag it to crop.</p>
+      <label class="file-label">Add photos <input id="photo" type="file" accept="image/*" multiple></label>
+      <div class="row">
+        <button id="load-samples" type="button">Load sample photos</button>
+        <button id="clear-photos" type="button" class="ghost">Clear</button>
+      </div>
+      <div id="photo-strip" class="photo-strip" aria-label="Loaded photos"></div>
+      <p id="photo-count" class="hint" role="status">No photos yet — load the samples or your own</p>
+    </section>
+    <section>
+      <h2>2 · Layout</h2>
+      <div id="layout-choices" class="choices" role="group" aria-label="Cover layout"></div>
+    </section>
+    <section>
+      <h2>3 · Grade</h2>
+      <div id="grade-choices" class="choices" role="group" aria-label="Colour grade"></div>
+    </section>
+    <section>
+      <h2>4 · Caption</h2>
+      <label>Title <input id="title" type="text" maxlength="24" value="NEON SHORE"></label>
+      <label>Subtitle <input id="subtitle" type="text" maxlength="32" value="Vice City Nights"></label>
+      <label>Title style
+        <select id="title-style">
+          <option value="sunset" selected>Sunset gradient</option>
+          <option value="block">White block</option>
+          <option value="neon">Neon glow</option>
+        </select>
+      </label>
+      <label>Seal <input id="seal" type="text" maxlength="12" value="EST. 2026"></label>
+      <label>Callout chip <input id="callout" type="text" maxlength="12" value="NEW"></label>
+      <label>Billing block <input id="billing" type="text" maxlength="64" value="A VICE CITY STORY  •  STARRING YOU  •  COMING SOON"></label>
+      <label>Heat <span id="heat-val">4 / 5</span>
+        <input id="heat" type="range" min="0" max="5" step="1" value="4">
+      </label>
+    </section>
+    <section>
+      <h2>5 · Selected panel</h2>
+      <p id="panel-label" class="hint">Panel 1 of 8</p>
+      <label>Zoom <span id="zoom-val">1.00x</span>
+        <input id="zoom" type="range" min="1" max="3" step="0.01" value="1">
+      </label>
+      <label>Pan left–right <span id="pan-x-val">0%</span>
+        <input id="pan-x" type="range" min="-50" max="50" step="1" value="0">
+      </label>
+      <label>Pan up–down <span id="pan-y-val">0%</span>
+        <input id="pan-y" type="range" min="-50" max="50" step="1" value="0">
+      </label>
+      <button id="fill-panel" type="button" class="ghost">Reset panel crop</button>
+      <p class="hint">Tip: drag the photo inside a panel to crop it, scroll over it to zoom.</p>
+    </section>
+    <section>
+      <h2>6 · Finish</h2>
+      <label class="check"><input id="grain" type="checkbox" checked> Film grain</label>
+      <label class="check"><input id="vignette" type="checkbox" checked> Vignette</label>
+      <label class="check"><input id="palms" type="checkbox" checked> Palm silhouettes</label>
+      <label class="check"><input id="sun" type="checkbox" checked> Striped sun</label>
+    </section>
+    <section>
+      <h2>7 · Export PNG</h2>
+      <div id="size-choices" class="choices" role="group" aria-label="Export size"></div>
+      <div class="row">
+        <button id="export-one" type="button" class="primary">Export this size</button>
+        <button id="export-all" type="button">Export all 3 sizes</button>
+      </div>
+      <p id="status" class="hint" role="status"></p>
+    </section>
+  </aside>
+  <section class="stage" aria-label="Cover preview">
+    <canvas id="cover" width="1080" height="1080" aria-label="The cover preview"></canvas>
+    <p class="hint">Live preview — what you see is the PNG you export. Click a panel to select it.</p>
+  </section>
+</main>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
